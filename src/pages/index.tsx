@@ -1,5 +1,16 @@
-import { Box, Button, Card, CardContent, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
-import { Field, Form, Formik, FormikConfig, FormikValues } from 'formik';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CircularProgress,
+  Grid,
+  Step,
+  StepLabel,
+  Stepper,
+  Typography
+} from '@material-ui/core';
+import { Field, Form, Formik, FormikConfig, FormikValues, useFormikContext } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-material-ui';
 import React, { useState } from 'react';
 import { mixed, number, object } from 'yup';
@@ -54,7 +65,8 @@ export default function Home() {
               }),
             })}
           >
-            <Box paddingBottom={2}>
+            <ComponentToShowFullName />
+            <Box paddingBottom={2} paddingTop={2}>
               <Field
                 fullWidth
                 name="money"
@@ -65,7 +77,8 @@ export default function Home() {
             </Box>
           </FormikStep>
           <FormikStep label="More Info">
-            <Box paddingBottom={2}>
+            <ComponentToShowFullName />
+            <Box paddingBottom={2} paddingTop={2}>
               <Field fullWidth name="description" component={TextField} label="Description" />
             </Box>
           </FormikStep>
@@ -147,5 +160,15 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
         </Form>
       )}
     </Formik>
+  );
+}
+
+function ComponentToShowFullName() {
+  const formikContext = useFormikContext<{ firstName: string; lastName: string }>();
+
+  return (
+    <Typography variant="h4">
+      Hello, {formikContext.values.firstName + ' ' + formikContext.values.lastName}!
+    </Typography>
   );
 }
