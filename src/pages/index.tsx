@@ -10,7 +10,13 @@ export default function Home() {
   return (
     <Card>
       <CardContent>
-        <FormikStepper
+        <FormikStepper<{
+          firstName: string,
+          lastName: string,
+          millionaire: boolean,
+          money: number,
+          description: string,
+        }>
           initialValues={{
             firstName: '',
             lastName: '',
@@ -84,7 +90,7 @@ export function FormikStep({ children }: FormikStepProps) {
   return <>{children}</>;
 }
 
-export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>) {
+export function FormikStepper<Values extends FormikValues = FormikValues, ExtraProps = {}>({ children, ...props }: FormikConfig<Values>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[];
   const [step, setStep] = useState(0);
   const currentChild = childrenArray[step];
