@@ -104,6 +104,19 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
           setCompleted(true);
         } else {
           setStep((s) => s + 1);
+
+          // the next line was not covered in the youtube video
+          //
+          // If you have multiple fields on the same step
+          // we will see they show the validation error all at the same time after the first step!
+          //
+          // If you want to keep that behaviour, then, comment the next line :)
+          // If you want the second/third/fourth/etc steps with the same behaviour
+          //    as the first step regarding validation errors, then the next line is for you! =)
+          //
+          // In the example of the video, it doesn't make any difference, because we only
+          //    have one field with validation in the second step :)
+          helpers.setTouched({});
         }
       }}
     >
